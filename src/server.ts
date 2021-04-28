@@ -1,12 +1,8 @@
-import express, { Request, Response } from 'express'
+import App from './app';
+require('dotenv').config()
+import IndexRoute from '@modules/index/index.route';
 
-const app = express();
-const port = process.env.PORT || 5000
-
-app.get('/', (req: Request, res: Response) => {
-    res.send("a");
-})
-
-app.listen(port, () => {
-    console.log("server is running")
-})
+const routes = [new IndexRoute()]
+const app = new App(routes);
+app.connectDB(process.env.MONGO_URI);
+app.listen();
